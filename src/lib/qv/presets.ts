@@ -117,7 +117,7 @@ const informatikerOverview = [
   },
   {
     title: 'Rundung',
-    text: 'Gesamtnote, IPA, IK und ABU auf 0.1; eGK sowie BFS-/ÜK-Mittel auf ganze oder halbe Noten.',
+    text: 'Gesamtnote, IPA, IK und ABU auf 0.1; eGK ist das auf ganze oder halbe Note gerundete Mittel aus acht Semesterzeugnisnoten.',
   },
   {
     title: 'IPA aktuell',
@@ -175,8 +175,19 @@ const informatikerComponents: QVComponent[] = [
     label: 'Erweiterte Grundkompetenzen',
     shortLabel: 'eGK',
     weight: 10,
-    description: 'Durchschnitt aus den acht Semesterzeugnisnoten im Bereich erweiterte Grundkompetenzen.',
-    roundingNote: 'eGK-Note auf 0.5',
+    description: 'Erfahrungsnote aus dem Unterrichtsbereich erweiterte Grundkompetenzen. Für Informatiker/in EFZ BiVo 2021 umfasst dieser Bereich Mathematik und Englisch; bei anderen oder älteren Bildungsverordnungen können andere Fächer gelten.',
+    roundingNote: 'Mittel aus acht Semesterzeugnisnoten, auf ganze oder halbe Note gerundet',
+    detailResultRounding: 0.5,
+    details: [
+      { id: 'semester-1', label: 'eGK Semesterzeugnisnote 1', shortLabel: 'S1', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+      { id: 'semester-2', label: 'eGK Semesterzeugnisnote 2', shortLabel: 'S2', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+      { id: 'semester-3', label: 'eGK Semesterzeugnisnote 3', shortLabel: 'S3', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+      { id: 'semester-4', label: 'eGK Semesterzeugnisnote 4', shortLabel: 'S4', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+      { id: 'semester-5', label: 'eGK Semesterzeugnisnote 5', shortLabel: 'S5', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+      { id: 'semester-6', label: 'eGK Semesterzeugnisnote 6', shortLabel: 'S6', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+      { id: 'semester-7', label: 'eGK Semesterzeugnisnote 7', shortLabel: 'S7', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+      { id: 'semester-8', label: 'eGK Semesterzeugnisnote 8', shortLabel: 'S8', weight: 12.5, roundingNote: 'ganze oder halbe Note' },
+    ],
   },
   {
     id: 'ik',

@@ -11,6 +11,7 @@ import type { QVComponent, QVPreset } from '../qv/types';
 const preset = QV_PRESETS[0];
 const ipa = preset.components.find((component) => component.id === 'ipa')!;
 const abu = preset.components.find((component) => component.id === 'abu')!;
+const egk = preset.components.find((component) => component.id === 'egk')!;
 const ik = preset.components.find((component) => component.id === 'ik')!;
 
 const popularPresetIds = [
@@ -97,6 +98,44 @@ describe('QV Informatiker/in EFZ calculations', () => {
   test('IK detail calculation uses 80/20', () => {
     const result = computeComponentGrade(ik, { bfs: 4.5, uek: 5.5 });
     expect(result).toBe(4.7);
+  });
+
+  test('eGK exposes eight equally weighted semester detail fields', () => {
+    expect(egk.details?.length).toBe(8);
+    expect(egk.details?.every((detail) => detail.weight === 12.5)).toBe(true);
+  });
+
+  test('eGK detail calculation averages eight semester notes and rounds to 0.5', () => {
+    const result = computeComponentGrade(egk, {
+      'semester-1': 4,
+      'semester-2': 4,
+      'semester-3': 4,
+      'semester-4': 4,
+      'semester-5': 4.5,
+      'semester-6': 4.5,
+      'semester-7': 4.5,
+      'semester-8': 4.5,
+    });
+    expect(result).toBe(4.5);
+  });
+
+  test('eGK detail calculation waits for all eight semester notes', () => {
+    const result = computeComponentGrade(egk, {
+      'semester-1': 4,
+      'semester-2': 4,
+      'semester-3': 4,
+      'semester-4': 4,
+      'semester-5': 4.5,
+      'semester-6': 4.5,
+      'semester-7': 4.5,
+    });
+    expect(result).toBeNull();
+  });
+
+  test('direct eGK grade entry still works in regular final calculation', () => {
+    const result = evaluateQV(preset, 'regular', { ipa: 4, abu: 4, egk: 4.5, ik: 4 });
+    expect(result.finalGrade).toBe(4.1);
+    expect(result.passed).toBe(true);
   });
 
   test('ABU standard mode uses experience, work and exam in equal thirds', () => {
